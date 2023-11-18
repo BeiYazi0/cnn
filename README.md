@@ -2,7 +2,7 @@
 
 一个使用 numpy 实现的简单的神经网络框架（超级简单！！！），没什么用，就当是纪念一下吧。
 
-由于某次[作业](https://github.com/BeiYazi0/DL_homework/SP)要求不能使用框架，只好痛苦地写出了这个奇怪的东西，本 README 也是该作业 README 的一部分。
+由于某次[作业](https://github.com/BeiYazi0/DL_homework/tree/main/SP)要求不能使用框架，只好痛苦地写出了这个奇怪的东西，本 README 也是该作业 README 的一部分。
 
 使用本框架完成手写数字识别的代码大致如下
 
