@@ -1087,7 +1087,7 @@ Model.fit() 将训练数据在模型中训练一定次数，返回loss和测量�
 
 值得注意的是，通过 callback 可以在训练中适当修改学习率（如每经过 30 epoch 学习率减半）。
 
-batch_size 默认为 -1，此时为批量，实际上一般认为大于 32 的 batch_size 是有害的，另外需要注意样本数不能恰好分成 batch_size 份的情况。
+batch_size 默认为 -1，此时为批量，另外需要注意样本数不能恰好分成 batch_size 份的情况。
 
 shuffle 默认为 True，执行将训练模型的数据集进行打乱的操作，详见[TF模型训练中数据shuffle对模型性能的影响](https://blog.csdn.net/pearl8899/article/details/121792312)。
 
