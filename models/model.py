@@ -53,6 +53,9 @@ class Model():
         
         loss_dic = {"cross_tropy": cross_tropy}
         self.loss_fcn = loss_dic[loss_fcn] if loss_fcn in loss_dic else MSE
+        
+        output_layer = self.layers[-1]
+        output_layer.set_flag(loss_fcn == "cross_tropy")
             
     def forward(self):
         '''

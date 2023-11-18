@@ -2,9 +2,9 @@ from cnn.activations import *
 
 class NetworkDict():
     def __init__(self, size):
-        self.activate_fcn_dic = {"ReLU": ReLU, "sigmoid": sigmoid, "softmax": softmax}
+        self.activate_fcn_dic = {"ReLU": ReLU, "sigmoid": sigmoid, "softmax": softmax, "tanh": tanh}
         self.activate_gradient_fcn_dic = {"ReLU": ReLU_gradient, "sigmoid": sigmoid_gradient, 
-                                     "softmax": softmax_gradient}
+                                     "softmax": softmax_gradient, "tanh": tanh_gradient}
         self.padding_dic = {"valid": 0, "same": size//2, "full": size-1}
         
     def get_activate_fcn(self, activate_fcn):

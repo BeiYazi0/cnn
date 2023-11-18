@@ -40,9 +40,8 @@ class Conv2D():
         
         self._str = np.array([self.__name__, padding, activate_fcn])
         
-        # 输入，输出，激活项
+        # 输入，激活项
         self.x = None
-        self.z = None
         self.a = None
     
     def set_input(self, X):
@@ -74,16 +73,16 @@ class Conv2D():
         return z.reshape(out_k, N, out_h, out_w).transpose(1, 0, 2, 3)
     
     def fordwrd_propagate(self):
-        self.z = self.conv_im2col(self.x, self.kernel, self.padding, self.stride)
-        self.a = self.activate_fcn(self.z)
+        z = self.conv_im2col(self.x, self.kernel, self.padding, self.stride)
+        self.a = self.activate_fcn(z)
         return self.a
     
-    def conv_bp(self, x, z, error, kernel, activate_fcn_gradient):
+    def conv_bp(self, x, a, error, kernel, activate_fcn_gradient):
         '''
         卷积层系数更新和反向传播
         Args:
             x (N, C, H, W): 正向传播中卷积层的输入
-            z (N, out_k, out_h, out_w): 正向传播中卷积层的输出
+            a (N, out_k, out_h, out_w): 正向传播中卷积层的激活输出
             error (N, out_k, out_h, out_w): 从下一层反向传播而来的误差
             kernel (out_k, C, KH, KW): 卷积核
             activate_fcn_gradient method: 激活函数的梯度函数
@@ -95,7 +94,7 @@ class Conv2D():
         N, C, H, W = x.shape
 
         # 计算delta
-        delta = np.multiply(error, activate_fcn_gradient(z))
+        delta = np.multiply(error, activate_fcn_gradient(a))
 
         # 计算 grad
         grad = self.conv_im2col(x.transpose(1, 0, 2, 3), 
@@ -108,7 +107,7 @@ class Conv2D():
         return grad, error_bp
     
     def backward_propagate(self, error, lr):
-        grad, error_bp = self.conv_bp(self.x, self.z, error, 
+        grad, error_bp = self.conv_bp(self.x, self.a, error, 
                                       self.kernel, self.activate_gradient_fcn)
         self.kernel -= lr * grad
         return error_bp

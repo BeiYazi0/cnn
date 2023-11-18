@@ -1,16 +1,6 @@
 import numpy as np
 
 
-def Linear(z):
-    '''
-    Linear 函数
-    Args:
-        z (m, n): 输入
-    Returns:
-        g (m, n): Linear 函数输出
-    '''
-    return z
-
 def ReLU(z):
     '''
     ReLU 函数
@@ -44,14 +34,39 @@ def softmax(z):
     # 注意 d sum时的axis
     return d / d.sum(axis = 1).reshape(-1, 1)
 
+def tanh(z):
+    '''
+    tanh 函数
+    Args:
+        z (m, n): 输入
+    Returns:
+        g (m, n): tanh 函数输出
+    '''
+    b = np.exp(z)
+    c = np.exp(-z)
+    return (b - c) / (b + c)
+
+def Linear(z):
+    '''
+    Linear 函数
+    Args:
+        z (m, n): 输入
+    Returns:
+        g (m, n): Linear 函数输出
+    '''
+    return z
+
+def ReLU_gradient(h):
+    return h > 0
+
+def sigmoid_gradient(h):
+    return np.multiply(h, (1 - h))
+
+def softmax_gradient(h):
+    return np.multiply(h, (1 - h))
+
+def tanh_gradient(h):
+    return 1 - np.power(h, 2)
+
 def Linear_gradient(z):
     return 1
-
-def ReLU_gradient(z):
-    return z > 0
-
-def sigmoid_gradient(z):
-    return np.multiply(sigmoid(z), (1 - sigmoid(z)))
-
-def softmax_gradient(z):
-    return np.multiply(softmax(z), (1 - softmax(z)))

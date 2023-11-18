@@ -32,9 +32,8 @@ class Dense():
         
         self._str = np.array([self.__name__, activate_fcn])
         
-        # 输入，输出，激活项
+        # 输入，激活项
         self.x = None
-        self.z = None
         self.a = None
     
     def set_input(self, X):
@@ -48,23 +47,22 @@ class Dense():
             theta (t, n): t 个输出神经元，n个输入神经元
             activate_fcn method: 激活函数
         Returns:
-            z (m, t): 输出
             a (m, t): 激活输出
         '''
         z = x @ theta.T
         a = activate_fcn(z)
 
-        return z, a
+        return a
     
     def fordwrd_propagate(self):
-        self.z, self.a = self.hidden_forward(self.x, self.theta, self.activate_fcn)
+        self.a = self.hidden_forward(self.x, self.theta, self.activate_fcn)
         return self.a
     
-    def hidden_backward(self, z, x, error, theta, activate_fcn_gradient):
+    def hidden_backward(self, a, x, error, theta, activate_fcn_gradient):
         '''
         隐层系数更新和反向传播
         Args:
-            z (m, t): 正向传播中隐层的输出
+            a (m, t): 正向传播中隐层的激活输出
             x (m, n): 正向传播中隐层的输入
             error (m, t): 从下一层反向传播而来的误差
             theta (t, n): 参数矩阵
@@ -73,10 +71,8 @@ class Dense():
             grad (n, t): 隐层系数的梯度
             error_bp (m, n): 隐层向上一层反向传播的误差
         '''
-        m = z.shape[0]
-
         # 计算delta
-        delta = np.multiply(error, activate_fcn_gradient(z))
+        delta = np.multiply(error, activate_fcn_gradient(a))
 
         # 计算 grad
         grad = delta.T @ x 
@@ -87,7 +83,7 @@ class Dense():
         return grad, error_bp
     
     def backward_propagate(self, error, lr):
-        grad, error_bp = self.hidden_backward(self.z, self.x, error, 
+        grad, error_bp = self.hidden_backward(self.a, self.x, error, 
                                               self.theta, self.activate_gradient_fcn)
         self.theta -= lr * grad
         return error_bp

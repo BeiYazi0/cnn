@@ -32,9 +32,13 @@ class Output():
         
         self._str = np.array([self.__name__, activate_fcn])
         
-        # 输入，输出，激活项
+        if activate_fcn == "softmax" or activate_fcn == "sigmoid":
+            self.flag = True
+        else:
+            self.flag = False
+        
+        # 输入，激活项
         self.x = None
-        self.z = None
         self.a = None
     
     def set_input(self, X):
@@ -48,35 +52,36 @@ class Output():
             theta (t, n): t 个输出神经元，n个输入神经元
             activate_fcn method: 激活函数
         Returns:
-            z (m, t): 输出
             a (m, t): 激活输出
         '''
         z = x @ theta.T
         a = activate_fcn(z)
 
-        return z, a
+        return a
     
     def fordwrd_propagate(self):
-        self.z, self.a = self.hidden_forward(self.x, self.theta, self.activate_fcn)
+        self.a = self.hidden_forward(self.x, self.theta, self.activate_fcn)
         return self.a
     
-    def hidden_backward(self, z, x, error, theta, activate_fcn_gradient):
+    def hidden_backward(self, a, x, error, theta, activate_fcn_gradient, flag):
         '''
         隐层系数更新和反向传播
         Args:
-            z (m, t): 正向传播中隐层的输出
+            a (m, t): 正向传播中隐层的激活输出
             x (m, n): 正向传播中隐层的输入
             error (m, t): 从下一层反向传播而来的误差
             theta (t, n): 参数矩阵
             activate_fcn_gradient method: 激活函数的梯度函数
+            flag boolean: 使用交叉熵损失 + sigmoid/softmax
         Returns:
             grad (n, t): 隐层系数的梯度
             error_bp (m, n): 隐层向上一层反向传播的误差
         '''
-        m = z.shape[0]
-
         # 计算delta 使用交叉熵损失 + sigmoid/softmax
-        delta = error
+        if flag:
+            delta = error
+        else:
+            delta = np.multiply(error, activate_fcn_gradient(a))
 
         # 计算 grad
         grad = delta.T @ x 
@@ -87,10 +92,13 @@ class Output():
         return grad, error_bp
     
     def backward_propagate(self, error, lr):
-        grad, error_bp = self.hidden_backward(self.z, self.x, error, 
-                                              self.theta, self.activate_gradient_fcn)
+        grad, error_bp = self.hidden_backward(self.a, self.x, error, 
+                                              self.theta, self.activate_gradient_fcn, self.flag)
         self.theta -= lr * grad
         return error_bp
+    
+    def set_flag(self, loss_flag):
+        self.flag = self.flag & loss_flag
     
     def summary(self):
         '''
