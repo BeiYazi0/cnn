@@ -56,7 +56,7 @@ def save_model(filename, model):
     f.create_dataset("layer_cnt", data = len(model.layers))
     # 字符串的存储
     dt = h5py.special_dtype(vlen = str)
-    data = np.array([model.name, model.loss_fcn_name])
+    data = np.array([model.name, model.loss_fcn_name, model.accuracy_fcn_name])
     ds = f.create_dataset('name', data.shape, dtype = dt)
     ds[:] = data
 

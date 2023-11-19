@@ -6,7 +6,7 @@ from matplotlib import pyplot as plt
 def history_show(history, accuracy_file = None, loss_file = None):
     # accuracy的历史
     plt.plot(history['accuracy'])
-    plt.title('model accuracy')
+    plt.title('model %s' % history['type'])
     plt.ylabel('accuracy')
     plt.xlabel('epoch')
     plt.legend(['train'], loc='upper left')

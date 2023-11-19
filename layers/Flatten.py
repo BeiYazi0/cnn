@@ -36,7 +36,7 @@ class Flatten():
         self.input_shape = (C, H, W)
         return x.reshape(N, -1)
     
-    def fordwrd_propagate(self):
+    def forward_propagate(self):
         self.z = self.flatten_forward(self.x)
         return self.z
     

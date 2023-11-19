@@ -5,7 +5,7 @@ from .model import Model
 
 
 layer_dic = {"Conv2D": Conv2D, "AveragePooling2D": AveragePooling2D, "MaxPooling2D": MaxPooling2D,
-            "Flatten": Flatten, "Dense": Dense, "Output": Output}
+            "Flatten": Flatten, "Dense": Dense, "Output": Output, "Recurrent": Recurrent}
 
 def load_layer(f, group_name, input_shape):
     '''
@@ -58,7 +58,7 @@ def load_model(filename):
     
     # compile
     lr = f["lr"][()]
-    model.compile(lr, name[1])
+    model.compile(lr, name[1], name[2])
     
     f.close()
     return model

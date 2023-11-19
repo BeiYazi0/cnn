@@ -16,7 +16,7 @@ class Input():
     def set_input(self, X):
         self.x = X
     
-    def fordwrd_propagate(self):
+    def forward_propagate(self):
         return self.x
     
     def summary(self):

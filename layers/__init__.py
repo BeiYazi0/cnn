@@ -5,3 +5,4 @@ from .AveragePooling import AveragePooling2D
 from .Flatten import Flatten
 from .Dense import Dense
 from .Output import Output
+from .Recurrent import Recurrent

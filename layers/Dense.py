@@ -54,7 +54,7 @@ class Dense():
 
         return a
     
-    def fordwrd_propagate(self):
+    def forward_propagate(self):
         self.a = self.hidden_forward(self.x, self.theta, self.activate_fcn)
         return self.a
     

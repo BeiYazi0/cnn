@@ -72,7 +72,7 @@ class Conv2D():
 
         return z.reshape(out_k, N, out_h, out_w).transpose(1, 0, 2, 3)
     
-    def fordwrd_propagate(self):
+    def forward_propagate(self):
         z = self.conv_im2col(self.x, self.kernel, self.padding, self.stride)
         self.a = self.activate_fcn(z)
         return self.a

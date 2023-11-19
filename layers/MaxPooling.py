@@ -65,7 +65,7 @@ class MaxPooling2D():
                 max_id.reshape(C, N, out_h, out_w).transpose(1, 0, 2, 3))
 
     
-    def fordwrd_propagate(self):
+    def forward_propagate(self):
         self.z, self.max_id = self.max_pool_im2col(self.x, self.pool_shape, 
                                                    self.padding, self.stride)
         return self.z
