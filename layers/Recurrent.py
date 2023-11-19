@@ -45,6 +45,7 @@ class Recurrent():
     
     def set_state(self, state):
         self.init_state = state
+        self.a = None
         
     def set_input(self, X):
         self.x = X
