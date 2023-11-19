@@ -3,6 +3,11 @@
 一个使用 numpy 实现的简单的神经网络框架（超级简单！！！），没什么用，就当是纪念一下吧。
 
 由于某次[作业](https://github.com/BeiYazi0/DL_homework/tree/main/SP)要求不能使用框架，只好痛苦地写出了这个奇怪的东西，本 README 也是该作业 README 的一部分。
+---
+
+已经更新循环层，用于[作业](https://github.com/BeiYazi0/DL_homework/tree/main/SP2)。
+
+---
 
 使用本框架完成手写数字识别的代码大致如下
 
@@ -76,6 +81,7 @@ model.save("model\\MNIST_cnn.h5")
     - Input.py 
     - MaxPooling.py 
     - Output.py
+    - Recurrent.py
 3. losses
     - __init__.py 
     - loss.py
