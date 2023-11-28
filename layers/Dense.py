@@ -75,7 +75,7 @@ class Dense():
         delta = np.multiply(error, activate_fcn_gradient(a))
 
         # 计算 grad
-        grad = delta.T @ x 
+        grad = delta.T @ x / x.shape[0]
 
         # 反向传播
         error_bp = delta @ theta
