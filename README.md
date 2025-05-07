@@ -175,7 +175,7 @@ def softmax_gradient(z):
 
 卷积层的实现原理如图所示，由于较为简单，这里就不再赘述了。
 
-![png](./img/conv.png)
+![PNG](./img/conv.PNG)
 
 首先尝试使用 scipy.signal.convolve2d 实现二维卷积。
 
@@ -226,7 +226,7 @@ def conv(x, kernel, padding = 0):
 
 见 [pool_standard](cnn/utils/standard.py)
 
-![png](./img/pool.png)
+![PNG](./img/pool.PNG)
 
 
 ```python
@@ -305,21 +305,21 @@ CNN中处理的是4维数据，因此卷积运算的实现看上去会很复杂�
 
 im2col 是一个函数，将输入数据展开以适合滤波器（权重）。如图所示，对3维的输入数据应用 im2col 后，数据转换为2维矩阵。
 
-![png](./img/im2col1.png)
+![PNG](./img/im2col1.PNG)
 
 为了便于观察，将步幅设置得很大，以使滤波器的应用区域不重叠。而在实际的卷积运算中，滤波器的应用区域几乎都是重叠的。在滤波器的应用区域重叠的情况下，使用 im2col 展开后，展开后的元素个数会多于原方块的元素个数。因此，使用 im2col 的实现存在比普通的实现消耗更多内存的缺点。
 
 使用 im2col 展开输入数据后，之后就只需将卷积层的滤波器（权重）纵向展开为1列，并计算2个矩阵的乘积即可。
 
-![png](./img/im2col2.png)
+![PNG](./img/im2col2.PNG)
 
 池化层的实现和卷积层相同，都使用 im2col 展开输入数据。不过，池化的情况下，在通道方向上是独立的，这一点和卷积层不同。具体地讲，如图所示，池化的应用区域按通道单独展开。
 
-![png](./img/im2col3.png)
+![PNG](./img/im2col3.PNG)
 
 对于最大池化，展开之后，只需对展开的矩阵求各行的最大值，并转换为合适的形状即可。
 
-![png](./img/im2col4.png)
+![PNG](./img/im2col4.PNG)
 
 对于平均池化，展开之后，只需对展开的矩阵求各行的平均值，并转换为合适的形状即可。
 
@@ -649,11 +649,11 @@ def hidden_forward(x, theta, activate_fcn):
 
 更新卷积层的系数。
 
-[png](./img/conv_bp.png)
+[PNG](./img/conv_bp.PNG)
 
 梯度穿越卷积层
 
-[png](./img/conv_bp2.png)
+[PNG](./img/conv_bp2.PNG)
 
 
 ```python
@@ -854,7 +854,7 @@ def hidden_backward(z, a, error, theta, activate_fcn_gradient, outflag = False):
 
 交叉熵损失
 
-![img](./img/nn_cost.png)
+![img](./img/nn_cost.PNG)
 
 
 ```python
